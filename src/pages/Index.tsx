@@ -1,11 +1,106 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState, useMemo } from 'react';
+import StatsCards from '@/components/StatsCards';
+import TokenFilter, { FilterState } from '@/components/TokenFilter';
+import TokenTable from '@/components/TokenTable';
+import WhaleTracker from '@/components/WhaleTracker';
+import TrendingTokens from '@/components/TrendingTokens';
+import { useMoralisAPI } from '@/hooks/useMoralisAPI';
+import { Card } from '@/components/ui/card';
 
 const Index = () => {
+  const { tokens, whaleTransactions, trendingTokens, isLoading } = useMoralisAPI();
+  const [filters, setFilters] = useState<FilterState>({
+    minMarketCap: '',
+    maxMarketCap: '',
+    minLiquidity: '',
+    maxLiquidity: '',
+    minVolume24h: '',
+    maxVolume24h: '',
+    sortBy: 'marketCap',
+    sortOrder: 'desc'
+  });
+
+  const filteredAndSortedTokens = useMemo(() => {
+    let filtered = tokens.filter(token => {
+      const mcMin = filters.minMarketCap ? parseFloat(filters.minMarketCap) : 0;
+      const mcMax = filters.maxMarketCap ? parseFloat(filters.maxMarketCap) : Infinity;
+      const liqMin = filters.minLiquidity ? parseFloat(filters.minLiquidity) : 0;
+      const liqMax = filters.maxLiquidity ? parseFloat(filters.maxLiquidity) : Infinity;
+      const volMin = filters.minVolume24h ? parseFloat(filters.minVolume24h) : 0;
+      const volMax = filters.maxVolume24h ? parseFloat(filters.maxVolume24h) : Infinity;
+
+      return token.marketCap >= mcMin && token.marketCap <= mcMax &&
+             token.liquidity >= liqMin && token.liquidity <= liqMax &&
+             token.volume24h >= volMin && token.volume24h <= volMax;
+    });
+
+    // Sort tokens
+    filtered.sort((a, b) => {
+      const aVal = a[filters.sortBy as keyof typeof a] as number;
+      const bVal = b[filters.sortBy as keyof typeof b] as number;
+      return filters.sortOrder === 'desc' ? bVal - aVal : aVal - bVal;
+    });
+
+    return filtered;
+  }, [tokens, filters]);
+
+  const stats = useMemo(() => ({
+    totalTokens: tokens.length,
+    totalMarketCap: tokens.reduce((sum, token) => sum + token.marketCap, 0),
+    activeWhales: 1247,
+    avgDailyVolume: tokens.reduce((sum, token) => sum + token.volume24h, 0) / tokens.length
+  }), [tokens]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card className="p-8 glass-effect neon-border animate-pulse-neon">
+          <div className="text-center">
+            <div className="text-4xl mb-4">🚀</div>
+            <h2 className="text-2xl font-bold crypto-gradient mb-2">Loading Meme Coins...</h2>
+            <p className="text-muted-foreground">Fetching data from Moralis API</p>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen p-6 space-y-6">
+      {/* Header */}
+      <div className="text-center py-8">
+        <h1 className="text-5xl font-bold crypto-gradient mb-4 glow-text">
+          🚀 SolMeme Tracker
+        </h1>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          Advanced Solana meme coin tracker with whale monitoring, liquidity analysis, and real-time market data
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <StatsCards {...stats} />
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column - Main Table */}
+        <div className="lg:col-span-2 space-y-6">
+          <TokenFilter onFilterChange={setFilters} />
+          <TokenTable tokens={filteredAndSortedTokens} />
+        </div>
+
+        {/* Right Column - Sidebar */}
+        <div className="space-y-6">
+          <TrendingTokens tokens={trendingTokens} />
+          <WhaleTracker transactions={whaleTransactions} />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="text-center py-8 border-t border-border/20">
+        <p className="text-muted-foreground">
+          Powered by Moralis API • Real-time Solana blockchain data
+        </p>
       </div>
     </div>
   );
