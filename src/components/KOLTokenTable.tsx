@@ -2,7 +2,8 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, ExternalLink, TrendingUp, TrendingDown, Shield, AlertTriangle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Clock, ExternalLink, TrendingUp, TrendingDown, Shield, AlertTriangle, Copy } from 'lucide-react';
 import { TokenLaunch } from '@/types';
 
 interface KOLTokenTableProps {
@@ -25,6 +26,12 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
     const minutes = Math.floor((Date.now() - date.getTime()) / (1000 * 60));
     if (minutes < 1) return 'Just now';
     return `${minutes}m ago`;
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    // You could add a toast notification here
+    console.log('Copied to clipboard:', text);
   };
 
   const getSignalBadge = (strength: number) => {
@@ -103,7 +110,17 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                         }
                       </div>
                       <div className="text-sm text-muted-foreground">{token.symbol}</div>
-                      <div className="text-xs text-muted-foreground font-mono">{token.address}</div>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
+                        <span>{token.address}</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="h-5 w-5 p-0"
+                          onClick={() => copyToClipboard(token.address)}
+                        >
+                          <Copy className="w-3 h-3" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </td>
@@ -149,9 +166,24 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                   </div>
                 </td>
                 <td className="p-4 text-center">
-                  <button className="p-2 rounded-lg hover:bg-white/10 transition-colors">
-                    <ExternalLink className="w-4 h-4 text-muted-foreground hover:text-crypto-blue" />
-                  </button>
+                  <div className="flex flex-col gap-1">
+                    <a
+                      href={`https://solscan.io/token/${token.address}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1"
+                    >
+                      Solscan <ExternalLink className="w-3 h-3" />
+                    </a>
+                    <a
+                      href={`https://gmgn.ai/sol/token/${token.address}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-green-400 hover:text-green-300 flex items-center gap-1"
+                    >
+                      GMGN <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </td>
               </tr>
             ))}

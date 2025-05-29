@@ -46,16 +46,18 @@ const generateRecentLaunches = (kolWallets: KOLWallet[]): TokenLaunch[] => {
     const kolInteractions: KOLInteraction[] = hasKOLInteraction ? 
       Array.from({ length: numKOLs }, (_, j) => {
         const kol = kolWallets[Math.floor(Math.random() * kolWallets.length)];
+        const impacts = ['high', 'medium', 'low'] as const;
+        const types = ['buy', 'sell', 'hold'] as const;
         return {
           id: `interaction-${i}-${j}`,
           kolWallet: kol,
           tokenAddress: `token-${i}`,
-          type: Math.random() > 0.8 ? 'sell' : 'buy' as const,
+          type: Math.random() > 0.8 ? types[1] : types[0],
           amount: Math.floor(Math.random() * 1000000),
           value: Math.random() * 50000,
           timestamp: new Date(launchTime.getTime() + Math.random() * 20 * 60 * 1000),
           txHash: `0x${Math.random().toString(36).substring(2, 15)}`,
-          impact: ['high', 'medium', 'low'][Math.floor(Math.random() * 3)] as const,
+          impact: impacts[Math.floor(Math.random() * 3)],
           confidence: Math.random() * 40 + 60
         };
       }) : [];
