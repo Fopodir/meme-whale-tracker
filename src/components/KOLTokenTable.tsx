@@ -116,7 +116,7 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                           size="sm"
                           variant="ghost"
                           className="h-5 w-5 p-0"
-                          onClick={() => copyToClipboard(token.address)}
+                          onClick={() => copyToClipboard(token.fullAddress)}
                         >
                           <Copy className="w-3 h-3" />
                         </Button>
@@ -168,7 +168,7 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                 <td className="p-4 text-center">
                   <div className="flex flex-col gap-1">
                     <a
-                      href={`https://solscan.io/token/${token.address}`}
+                      href={`https://solscan.io/token/${token.fullAddress}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1"
@@ -176,7 +176,7 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                       Solscan <ExternalLink className="w-3 h-3" />
                     </a>
                     <a
-                      href={`https://gmgn.ai/sol/token/${token.address}`}
+                      href={`https://gmgn.ai/sol/token/${token.fullAddress}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs text-green-400 hover:text-green-300 flex items-center gap-1"

@@ -43,6 +43,12 @@ const generateRecentLaunches = (kolWallets: KOLWallet[]): TokenLaunch[] => {
     const hasKOLInteraction = Math.random() > 0.7;
     const numKOLs = hasKOLInteraction ? Math.floor(Math.random() * 5) + 1 : 0;
     
+    // Generate a full 44-character Solana address
+    const fullAddress = Math.random().toString(36).substring(2, 15) + 
+                       Math.random().toString(36).substring(2, 15) + 
+                       Math.random().toString(36).substring(2, 15) + 
+                       Math.random().toString(36).substring(2, 5);
+    
     const kolInteractions: KOLInteraction[] = hasKOLInteraction ? 
       Array.from({ length: numKOLs }, (_, j) => {
         const kol = kolWallets[Math.floor(Math.random() * kolWallets.length)];
@@ -69,7 +75,8 @@ const generateRecentLaunches = (kolWallets: KOLWallet[]): TokenLaunch[] => {
       id: `token-${i}`,
       name: memeNames[i % memeNames.length] + (i > 9 ? ` v${Math.floor(i/10) + 1}` : ''),
       symbol: symbols[i % symbols.length] + (i > 9 ? Math.floor(i/10) + 1 : ''),
-      address: `${Math.random().toString(36).substring(2, 15)}...${Math.random().toString(36).substring(2, 6)}`,
+      address: `${fullAddress.substring(0, 6)}...${fullAddress.substring(fullAddress.length - 4)}`,
+      fullAddress: fullAddress,
       price: Math.random() * 0.1,
       marketCap: Math.random() * 5000000,
       liquidity: Math.random() * 2000000,

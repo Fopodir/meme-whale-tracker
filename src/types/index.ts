@@ -1,22 +1,9 @@
-
-export interface KOLWallet {
-  id: string;
-  address: string;
-  name: string;
-  tier: 'S' | 'A' | 'B' | 'C';
-  followers: number;
-  successRate: number;
-  totalTrades: number;
-  avgROI: number;
-  verified: boolean;
-  specialization: string[];
-}
-
 export interface TokenLaunch {
   id: string;
   name: string;
   symbol: string;
-  address: string;
+  address: string; // Truncated for display
+  fullAddress: string; // Full address for copying and links
   price: number;
   marketCap: number;
   liquidity: number;
@@ -36,6 +23,19 @@ export interface TokenLaunch {
   };
 }
 
+export interface KOLWallet {
+  id: string;
+  address: string;
+  name: string;
+  tier: 'S' | 'A' | 'B' | 'C';
+  followers: number;
+  successRate: number;
+  totalTrades: number;
+  avgROI: number;
+  verified: boolean;
+  specialization: string[];
+}
+
 export interface KOLInteraction {
   id: string;
   kolWallet: KOLWallet;
@@ -47,20 +47,4 @@ export interface KOLInteraction {
   txHash: string;
   impact: 'high' | 'medium' | 'low';
   confidence: number;
-}
-
-export interface AdvancedFilters {
-  minSignalStrength: number;
-  maxRiskScore: number;
-  minKOLTier: 'S' | 'A' | 'B' | 'C';
-  minKOLInteractions: number;
-  maxAge: string;
-  minLiquidity: number;
-  maxLiquidity: number;
-  minMarketCap: number;
-  maxMarketCap: number;
-  platforms: string[];
-  kolSpecializations: string[];
-  sortBy: string;
-  sortOrder: 'asc' | 'desc';
 }
