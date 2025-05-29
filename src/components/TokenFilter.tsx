@@ -17,6 +17,9 @@ export interface FilterState {
   maxLiquidity: string;
   minVolume24h: string;
   maxVolume24h: string;
+  minTraders: string;
+  maxTraders: string;
+  maxAge: string;
   sortBy: string;
   sortOrder: 'asc' | 'desc';
 }
@@ -29,6 +32,9 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
     maxLiquidity: '',
     minVolume24h: '',
     maxVolume24h: '',
+    minTraders: '',
+    maxTraders: '',
+    maxAge: '',
     sortBy: 'marketCap',
     sortOrder: 'desc'
   });
@@ -47,6 +53,9 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
       maxLiquidity: '',
       minVolume24h: '',
       maxVolume24h: '',
+      minTraders: '',
+      maxTraders: '',
+      maxAge: '',
       sortBy: 'marketCap',
       sortOrder: 'desc'
     };
@@ -61,7 +70,7 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
         <h3 className="text-lg font-semibold crypto-gradient">Advanced Filters</h3>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
         <div className="space-y-2">
           <label className="text-sm text-muted-foreground">Market Cap Range</label>
           <div className="flex gap-2">
@@ -117,7 +126,41 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm text-muted-foreground">Sort By</label>
+          <label className="text-sm text-muted-foreground">Traders Count</label>
+          <div className="flex gap-2">
+            <Input
+              placeholder="Min"
+              value={filters.minTraders}
+              onChange={(e) => handleFilterChange('minTraders', e.target.value)}
+              className="bg-background/50"
+            />
+            <Input
+              placeholder="Max"
+              value={filters.maxTraders}
+              onChange={(e) => handleFilterChange('maxTraders', e.target.value)}
+              className="bg-background/50"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="text-sm text-muted-foreground">Token Age & Sort</label>
+          <div className="flex gap-2">
+            <Select value={filters.maxAge} onValueChange={(value) => handleFilterChange('maxAge', value)}>
+              <SelectTrigger className="bg-background/50">
+                <SelectValue placeholder="Max Age" />
+              </SelectTrigger>
+              <SelectContent className="bg-background border-border">
+                <SelectItem value="">Any Age</SelectItem>
+                <SelectItem value="30m">30 minutes</SelectItem>
+                <SelectItem value="1h">1 hour</SelectItem>
+                <SelectItem value="6h">6 hours</SelectItem>
+                <SelectItem value="1d">1 day</SelectItem>
+                <SelectItem value="7d">7 days</SelectItem>
+                <SelectItem value="30d">30 days</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <div className="flex gap-2">
             <Select value={filters.sortBy} onValueChange={(value) => handleFilterChange('sortBy', value)}>
               <SelectTrigger className="bg-background/50">
@@ -128,6 +171,7 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
                 <SelectItem value="liquidity">Liquidity</SelectItem>
                 <SelectItem value="volume24h">24h Volume</SelectItem>
                 <SelectItem value="priceChange24h">24h Change</SelectItem>
+                <SelectItem value="tradersCount">Traders</SelectItem>
                 <SelectItem value="age">Age</SelectItem>
               </SelectContent>
             </Select>

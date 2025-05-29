@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Users } from 'lucide-react';
 
 interface Token {
   id: string;
@@ -14,6 +15,7 @@ interface Token {
   priceChange24h: number;
   age: string;
   whaleActivity: number;
+  tradersCount: number;
   logo?: string;
 }
 
@@ -56,6 +58,7 @@ const TokenTable: React.FC<TokenTableProps> = ({ tokens }) => {
               <th className="text-right p-4 text-muted-foreground font-medium">Market Cap</th>
               <th className="text-right p-4 text-muted-foreground font-medium">Liquidity</th>
               <th className="text-right p-4 text-muted-foreground font-medium">24h Volume</th>
+              <th className="text-center p-4 text-muted-foreground font-medium">Traders</th>
               <th className="text-center p-4 text-muted-foreground font-medium">Age</th>
               <th className="text-center p-4 text-muted-foreground font-medium">Whale Activity</th>
             </tr>
@@ -91,6 +94,12 @@ const TokenTable: React.FC<TokenTableProps> = ({ tokens }) => {
                 </td>
                 <td className="p-4 text-right font-mono text-muted-foreground">
                   {formatNumber(token.volume24h)}
+                </td>
+                <td className="p-4 text-center">
+                  <div className="flex items-center justify-center gap-1 text-muted-foreground">
+                    <Users className="w-3 h-3" />
+                    <span className="font-mono text-sm">{token.tradersCount.toLocaleString()}</span>
+                  </div>
                 </td>
                 <td className="p-4 text-center text-sm text-muted-foreground">
                   {token.age}

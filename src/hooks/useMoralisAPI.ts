@@ -20,7 +20,33 @@ const generateMockTokens = () => {
     volume24h: Math.random() * 20000000,
     priceChange24h: (Math.random() - 0.5) * 200,
     age: `${Math.floor(Math.random() * 365)}d`,
-    whaleActivity: Math.floor(Math.random() * 100)
+    whaleActivity: Math.floor(Math.random() * 100),
+    tradersCount: Math.floor(Math.random() * 10000) + 100
+  }));
+};
+
+const generateNewLaunchTokens = () => {
+  const newNames = [
+    'MoonRocket', 'GigaChad', 'DiamondHands', 'ToTheMoon', 'StonksCoin',
+    'MemeLord', 'YoloToken', 'PumpIt', 'Number9000', 'BasedCoin'
+  ];
+  
+  const symbols = ['MOON', 'GIGA', 'DIAM', 'TTM', 'STONK', 'MEME', 'YOLO', 'PUMP', 'N9K', 'BASED'];
+  const platforms = ['PumpFun', 'PumpSwap'] as const;
+  const launchTimes = ['5m ago', '12m ago', '18m ago', '25m ago', '28m ago'];
+  
+  return Array.from({ length: Math.floor(Math.random() * 8) + 2 }, (_, i) => ({
+    id: `new-${i}`,
+    name: newNames[i % newNames.length],
+    symbol: symbols[i % symbols.length],
+    price: Math.random() * 0.1,
+    marketCap: Math.random() * 1000000,
+    platform: platforms[Math.floor(Math.random() * platforms.length)],
+    launchTime: launchTimes[i % launchTimes.length],
+    tradersCount: Math.floor(Math.random() * 200) + 10,
+    volume24h: Math.random() * 100000,
+    priceChange: (Math.random() - 0.3) * 500, // New tokens tend to be more volatile
+    liquidity: Math.random() * 500000
   }));
 };
 
@@ -72,6 +98,7 @@ const generateTrendingTokens = () => {
 
 export const useMoralisAPI = () => {
   const [tokens, setTokens] = useState(generateMockTokens());
+  const [newLaunches, setNewLaunches] = useState(generateNewLaunchTokens());
   const [whaleTransactions, setWhaleTransactions] = useState(generateMockWhaleTransactions());
   const [trendingTokens, setTrendingTokens] = useState(generateTrendingTokens());
   const [isLoading, setIsLoading] = useState(true);
@@ -88,13 +115,20 @@ export const useMoralisAPI = () => {
         ...token,
         price: token.price + (Math.random() - 0.5) * 0.1,
         priceChange24h: token.priceChange24h + (Math.random() - 0.5) * 5,
-        volume24h: token.volume24h + (Math.random() - 0.5) * 1000000
+        volume24h: token.volume24h + (Math.random() - 0.5) * 1000000,
+        tradersCount: token.tradersCount + Math.floor((Math.random() - 0.5) * 100)
       })));
       
       // Add new whale transaction occasionally
       if (Math.random() > 0.7) {
         const newTx = generateMockWhaleTransactions()[0];
         setWhaleTransactions(prev => [newTx, ...prev.slice(0, 19)]);
+      }
+
+      // Add new launch token occasionally
+      if (Math.random() > 0.85) {
+        const newToken = generateNewLaunchTokens()[0];
+        setNewLaunches(prev => [newToken, ...prev.slice(0, 9)]);
       }
     }, 5000);
 
@@ -106,6 +140,7 @@ export const useMoralisAPI = () => {
 
   return {
     tokens,
+    newLaunches,
     whaleTransactions,
     trendingTokens,
     isLoading

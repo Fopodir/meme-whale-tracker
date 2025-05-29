@@ -5,11 +5,12 @@ import TokenFilter, { FilterState } from '@/components/TokenFilter';
 import TokenTable from '@/components/TokenTable';
 import WhaleTracker from '@/components/WhaleTracker';
 import TrendingTokens from '@/components/TrendingTokens';
+import NewLaunches from '@/components/NewLaunches';
 import { useMoralisAPI } from '@/hooks/useMoralisAPI';
 import { Card } from '@/components/ui/card';
 
 const Index = () => {
-  const { tokens, whaleTransactions, trendingTokens, isLoading } = useMoralisAPI();
+  const { tokens, newLaunches, whaleTransactions, trendingTokens, isLoading } = useMoralisAPI();
   const [filters, setFilters] = useState<FilterState>({
     minMarketCap: '',
     maxMarketCap: '',
@@ -17,9 +18,19 @@ const Index = () => {
     maxLiquidity: '',
     minVolume24h: '',
     maxVolume24h: '',
+    minTraders: '',
+    maxTraders: '',
+    maxAge: '',
     sortBy: 'marketCap',
     sortOrder: 'desc'
   });
+
+  const convertAgeToMinutes = (age: string) => {
+    if (age.includes('m')) return parseInt(age);
+    if (age.includes('h')) return parseInt(age) * 60;
+    if (age.includes('d')) return parseInt(age) * 60 * 24;
+    return 0;
+  };
 
   const filteredAndSortedTokens = useMemo(() => {
     let filtered = tokens.filter(token => {
@@ -29,10 +40,22 @@ const Index = () => {
       const liqMax = filters.maxLiquidity ? parseFloat(filters.maxLiquidity) : Infinity;
       const volMin = filters.minVolume24h ? parseFloat(filters.minVolume24h) : 0;
       const volMax = filters.maxVolume24h ? parseFloat(filters.maxVolume24h) : Infinity;
+      const tradersMin = filters.minTraders ? parseFloat(filters.minTraders) : 0;
+      const tradersMax = filters.maxTraders ? parseFloat(filters.maxTraders) : Infinity;
+
+      // Age filtering
+      let ageMatch = true;
+      if (filters.maxAge) {
+        const tokenAgeMinutes = convertAgeToMinutes(token.age);
+        const maxAgeMinutes = convertAgeToMinutes(filters.maxAge);
+        ageMatch = tokenAgeMinutes <= maxAgeMinutes;
+      }
 
       return token.marketCap >= mcMin && token.marketCap <= mcMax &&
              token.liquidity >= liqMin && token.liquidity <= liqMax &&
-             token.volume24h >= volMin && token.volume24h <= volMax;
+             token.volume24h >= volMin && token.volume24h <= volMax &&
+             token.tradersCount >= tradersMin && token.tradersCount <= tradersMax &&
+             ageMatch;
     });
 
     // Sort tokens
@@ -91,6 +114,7 @@ const Index = () => {
 
         {/* Right Column - Sidebar */}
         <div className="space-y-6">
+          <NewLaunches tokens={newLaunches} />
           <TrendingTokens tokens={trendingTokens} />
           <WhaleTracker transactions={whaleTransactions} />
         </div>
