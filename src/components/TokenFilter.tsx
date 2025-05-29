@@ -151,7 +151,7 @@ const TokenFilter: React.FC<FilterProps> = ({ onFilterChange }) => {
                 <SelectValue placeholder="Max Age" />
               </SelectTrigger>
               <SelectContent className="bg-background border-border">
-                <SelectItem value="">Any Age</SelectItem>
+                <SelectItem value="any">Any Age</SelectItem>
                 <SelectItem value="30m">30 minutes</SelectItem>
                 <SelectItem value="1h">1 hour</SelectItem>
                 <SelectItem value="6h">6 hours</SelectItem>

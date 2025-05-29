@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import StatsCards from '@/components/StatsCards';
 import TokenFilter, { FilterState } from '@/components/TokenFilter';
@@ -45,7 +44,7 @@ const Index = () => {
 
       // Age filtering
       let ageMatch = true;
-      if (filters.maxAge) {
+      if (filters.maxAge && filters.maxAge !== 'any') {
         const tokenAgeMinutes = convertAgeToMinutes(token.age);
         const maxAgeMinutes = convertAgeToMinutes(filters.maxAge);
         ageMatch = tokenAgeMinutes <= maxAgeMinutes;
