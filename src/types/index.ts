@@ -1,3 +1,4 @@
+
 export interface TokenLaunch {
   id: string;
   name: string;
@@ -47,4 +48,20 @@ export interface KOLInteraction {
   txHash: string;
   impact: 'high' | 'medium' | 'low';
   confidence: number;
+}
+
+export interface AdvancedFilters {
+  minSignalStrength: number;
+  maxRiskScore: number;
+  minKOLTier: 'S' | 'A' | 'B' | 'C';
+  minKOLInteractions: number;
+  maxAge: string;
+  minLiquidity: number;
+  maxLiquidity: number;
+  minMarketCap: number;
+  maxMarketCap: number;
+  platforms: string[];
+  kolSpecializations: string[];
+  sortBy: string;
+  sortOrder: 'asc' | 'desc';
 }

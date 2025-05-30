@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -111,7 +110,7 @@ const KOLTokenTable: React.FC<KOLTokenTableProps> = ({ tokens }) => {
                       </div>
                       <div className="text-sm text-muted-foreground">{token.symbol}</div>
                       <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
-                        <span>{token.address}</span>
+                        <span>{token.fullAddress}</span>
                         <Button
                           size="sm"
                           variant="ghost"
