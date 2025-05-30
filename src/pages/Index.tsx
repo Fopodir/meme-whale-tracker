@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { useKOLTracking } from '@/hooks/useKOLTracking';
 import { AdvancedFilters } from '@/types';
@@ -7,6 +6,7 @@ import KOLTokenTable from '@/components/KOLTokenTable';
 import KOLDashboard from '@/components/KOLDashboard';
 import SignalMetrics from '@/components/SignalMetrics';
 import { Card } from '@/components/ui/card';
+import { ExternalLink, Github, Globe, MessageCircle } from 'lucide-react';
 
 const Index = () => {
   const { kolWallets, recentLaunches, isLoading } = useKOLTracking();
@@ -163,14 +163,81 @@ const Index = () => {
       </div>
 
       {/* Footer */}
-      <div className="text-center py-8 border-t border-border/20">
-        <p className="text-muted-foreground">
-          Real-time KOL tracking • Powered by advanced blockchain analytics
-        </p>
-        <p className="text-xs text-muted-foreground mt-2">
-          Showing tokens launched in the last 30 minutes with KOL interaction signals
-        </p>
-      </div>
+      <footer className="border-t border-border/20 mt-16 pt-8">
+        <div className="text-center space-y-6">
+          <div>
+            <h3 className="text-lg font-semibold crypto-gradient mb-4">🐳 Meme Whale Tracker</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Real-time KOL tracking powered by advanced blockchain analytics. 
+              Identify high-potential meme tokens based on early whale interest and smart money movements.
+            </p>
+          </div>
+          
+          <div className="flex justify-center space-x-6">
+            <a
+              href="https://t.me/cryptokingmax"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Telegram
+            </a>
+            <a
+              href="https://github.com/cryptoking-max"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors"
+            >
+              <Github className="w-5 h-5" />
+              GitHub
+            </a>
+            <a
+              href="https://cryptokingmax.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-green-400 hover:text-green-300 transition-colors"
+            >
+              <Globe className="w-5 h-5" />
+              Website
+            </a>
+            <a
+              href="https://twitter.com/crytokingmax"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors"
+            >
+              <ExternalLink className="w-5 h-5" />
+              Twitter
+            </a>
+          </div>
+
+          <div className="pt-4 border-t border-border/10">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-sm text-muted-foreground">
+                Built by{' '}
+                <a 
+                  href="https://t.me/cryptokingmax" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  @cryptokingmax
+                </a>
+              </p>
+              <a
+                href="https://github.com/cryptoking-max/meme-whale-tracker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-white transition-colors"
+              >
+                <Github className="w-4 h-4" />
+                View Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
