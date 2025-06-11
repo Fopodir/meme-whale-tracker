@@ -1,97 +1,73 @@
+# Welcome to your Lovable project
 
-# 🐳 Meme Whale Tracker — KOL-Based Filter for New Tokens
+## Project info
 
-**Track influential wallets. Filter high-potential meme tokens. Stay ahead of the herd.**
+**URL**: https://lovable.dev/projects/98e165d3-cc46-4a7a-8645-6f8c53e04a5e
 
-## 🔍 What It Does
+## How can I edit this code?
 
-The Meme Whale Tracker is a powerful tool that tracks **KOL (Key Opinion Leader) wallets** and filters **newly launched tokens** based on real-time activity from whales and influencers.
+There are several ways of editing your application.
 
-It helps you:
+**Use Lovable**
 
-* ✅ Automatically fetch all tokens launched in the **last 30 minutes**
-* 🐋 Track which tokens have **KOL/whale activity**
-* 🧠 Filter noise and identify **high-potential meme coins early**
-* 📎 View full token address with **copy button** and **direct Solscan/GMGN links**
+Simply visit the [Lovable Project](https://lovable.dev/projects/98e165d3-cc46-4a7a-8645-6f8c53e04a5e) and start prompting.
 
----
+Changes made via Lovable will be committed automatically to this repo.
 
-## 🚀 Features
+**Use your preferred IDE**
 
-* **Live Token Launch Feed**
-  Detects all new tokens deployed on Solana within a 30-minute window.
+If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
 
-* **KOL Wallet Monitoring**
-  Cross-checks token interactions (buys, transfers, adds liquidity) against a curated list of KOL wallets.
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
-* **Advanced Filtering**
-  Surfaces only tokens showing early traction from trusted whales.
+Follow these steps:
 
-* **User Interface**
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-  * Full-length token address (no trimming)
-  * Copy-to-clipboard button
-  * One-click access to:
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-    * [Solscan](https://solscan.io)
-    * [GMGN](https://gmgn.ai)
+# Step 3: Install the necessary dependencies.
+npm i
 
----
-
-## 🧠 Why Use This?
-
-The Solana meme coin market is fast and chaotic. This tool gives you a **signal in the noise** — helping you:
-
-* React within minutes to early KOL buys
-* Avoid low-quality launches with no traction
-* Discover hidden gems before they trend
-
----
-
-## 🛠️ Tech Stack
-
-* **Backend:** Python / Node.js
-* **Blockchain Data:** WebSocket + RPC (ConstantNode or Helius)
-* **Token Detection:** Real-time on-chain event parsing
-* **Frontend:** Telegram Bot or Web Dashboard (optional)
-* **Database:** MongoDB / Redis for caching and speed
-
----
-
-## 📦 Installation
-
-```bash
-git clone https://github.com/cryptoking-max/meme-whale-tracker.git
-cd meme-whale-tracker
-pip install -r requirements.txt  # or npm install if Node.js
+# Step 4: Start the development server with auto-reloading and an instant preview.
+npm run dev
 ```
 
-> You'll need RPC access to Solana and a list of known KOL wallet addresses.
+**Edit a file directly in GitHub**
 
----
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-## 📈 Example Output
+**Use GitHub Codespaces**
 
-```text
-🆕 New Token Detected!
-Address: 7h5sM...Jh83kK [📋 Copy]
-[🔗 Solscan] | [🔗 GMGN]
-👑 Interacted by: @whale_eth, @pumpguy, @memequeen
-⏱️ Launched: 12 minutes ago
-```
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
----
+## What technologies are used for this project?
 
-## 📄 License
+This project is built with:
 
-MIT License
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
----
+## How can I deploy this project?
 
-## 👤 Author
+Simply open [Lovable](https://lovable.dev/projects/98e165d3-cc46-4a7a-8645-6f8c53e04a5e) and click on Share -> Publish.
 
-Built by [@cryptokingmax](https://t.me/cryptokingmax)
-Visit: [https://cryptokingmax.com](https://cryptokingmax.com)
+## Can I connect a custom domain to my Lovable project?
 
----
+Yes, you can!
 
+To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+
+Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

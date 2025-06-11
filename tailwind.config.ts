@@ -63,14 +63,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				crypto: {
-					green: '#00ff88',
-					red: '#ff3366',
-					purple: '#9945ff',
-					blue: '#14f195',
-					dark: '#0a0a0a',
-					darker: '#050505'
-				}
+				// Theme colors
+				midnight: '#0d1117',
+				'glow-green': '#2FF980',
+				'warm-yellow': '#FFD864',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -94,20 +90,49 @@ export default {
 						height: '0'
 					}
 				},
-				'pulse-neon': {
-					'0%, 100%': {
-						boxShadow: '0 0 5px #9945ff, 0 0 10px #9945ff, 0 0 15px #9945ff'
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px 0 rgba(47, 249, 128, 0.4)',
 					},
-					'50%': {
-						boxShadow: '0 0 10px #9945ff, 0 0 20px #9945ff, 0 0 30px #9945ff'
-					}
-				}
+					'50%': { 
+						boxShadow: '0 0 20px 5px rgba(47, 249, 128, 0.7)',
+					},
+				},
+				'rotate-coin': {
+					'0%': { transform: 'rotateY(0deg)' },
+					'100%': { transform: 'rotateY(360deg)' },
+				},
+				'fade-in-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)',
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'pulse-neon': 'pulse-neon 2s ease-in-out infinite'
-			}
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+				'rotate-coin': 'rotate-coin 6s linear infinite',
+				'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+			},
+			fontFamily: {
+				'inter': ['Inter', 'sans-serif'],
+				'satoshi': ['Satoshi', 'sans-serif'],
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'noise': "url('/noise.png')"
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
