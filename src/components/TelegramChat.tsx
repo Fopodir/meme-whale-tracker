@@ -92,7 +92,7 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-20 right-4 z-50">
       <Card className="w-80 h-[500px] bg-card/95 backdrop-blur-sm border-muted shadow-xl">
         <ChatHeader
           isConnected={isConnected}
