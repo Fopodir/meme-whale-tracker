@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWebSocketContext } from '@/contexts/WebSocketContext';
@@ -81,7 +80,7 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-20 right-4 z-50">
       <Card className="w-80 h-96 bg-card/95 backdrop-blur-sm border-muted shadow-xl">
         <ChatHeader
           isConnected={isConnected}
