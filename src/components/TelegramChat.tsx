@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWebSocketContext } from '@/contexts/WebSocketContext';
@@ -23,7 +22,14 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   const { toast } = useToast();
   const prevMessageCount = useRef(messages.length);
   const { soundEnabled, playNotificationSound } = useNotificationSound();
-  const { showBrowserNotification } = useBrowserNotifications();
+  const { showBrowserNotification, permission, requestPermission } = useBrowserNotifications();
+
+  // Request notification permission when chat is first opened
+  useEffect(() => {
+    if (isOpen && permission === 'default') {
+      requestPermission();
+    }
+  }, [isOpen, permission, requestPermission]);
 
   // Mark messages as read when chat is opened
   useEffect(() => {
