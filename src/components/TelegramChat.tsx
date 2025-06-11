@@ -18,7 +18,7 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [isMuted, setIsMuted] = useState(false);
-  const { messages, isConnected, sendMessage, hasUnreadMessages, markMessagesAsRead } = useWebSocketContext();
+  const { messages, isConnected, sendMessage, hasUnreadMessages, markMessagesAsRead, setChatOpen } = useWebSocketContext();
   const { toast } = useToast();
   const prevMessageCount = useRef(messages.length);
   const { soundEnabled, playNotificationSound } = useNotificationSound();
@@ -30,6 +30,11 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
       requestPermission();
     }
   }, [isOpen, permission, requestPermission]);
+
+  // Notify context when chat opens/closes
+  useEffect(() => {
+    setChatOpen(isOpen);
+  }, [isOpen, setChatOpen]);
 
   // Mark messages as read when chat is opened
   useEffect(() => {
@@ -88,7 +93,7 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50">
-      <Card className="w-80 h-96 bg-card/95 backdrop-blur-sm border-muted shadow-xl">
+      <Card className="w-80 h-[500px] bg-card/95 backdrop-blur-sm border-muted shadow-xl">
         <ChatHeader
           isConnected={isConnected}
           hasUnreadMessages={hasUnreadMessages}
