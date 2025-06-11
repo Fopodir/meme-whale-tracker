@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useWebSocket } from '@/services/websocket';
 import { useToast } from '@/hooks/use-toast';
@@ -9,12 +10,14 @@ interface WebSocketContextType {
   sendMessage: (content: string) => void;
   hasUnreadMessages: boolean;
   markMessagesAsRead: () => void;
+  setChatOpen: (isOpen: boolean) => void;
 }
 
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
 export function WebSocketProvider({ children }: { children: ReactNode }) {
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const { messages, isConnected, visitorId, connect, disconnect, sendMessage } = useWebSocket();
   const { toast } = useToast();
 
@@ -36,18 +39,24 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage.type === 'admin') {
         setHasUnreadMessages(true);
-        // Show toast notification for admin messages
-        toast({
-          title: "New Message from Support!",
-          description: "You have a new reply from support.",
-          duration: 1000,
-        });
+        // Only show toast notification if chat is not open
+        if (!isChatOpen) {
+          toast({
+            title: "New Message from Support!",
+            description: "You have a new reply from support.",
+            duration: 1000,
+          });
+        }
       }
     }
-  }, [messages, toast]);
+  }, [messages, toast, isChatOpen]);
 
   const markMessagesAsRead = () => {
     setHasUnreadMessages(false);
+  };
+
+  const setChatOpen = (isOpen: boolean) => {
+    setIsChatOpen(isOpen);
   };
 
   return (
@@ -59,6 +68,7 @@ export function WebSocketProvider({ children }: { children: ReactNode }) {
         sendMessage,
         hasUnreadMessages,
         markMessagesAsRead,
+        setChatOpen,
       }}
     >
       {children}
@@ -72,4 +82,4 @@ export function useWebSocketContext() {
     throw new Error('useWebSocketContext must be used within a WebSocketProvider');
   }
   return context;
-} 
+}
