@@ -16,11 +16,12 @@ interface ChatMessagesProps {
 
 export const ChatMessages = ({ messages, isOpen }: ChatMessagesProps) => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages arrive or chat opens
   useEffect(() => {
-    if (scrollAreaRef.current && (messages.length > 0 || isOpen)) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+    if (messagesEndRef.current && (messages.length > 0 || isOpen)) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages, isOpen]);
 
@@ -60,6 +61,7 @@ export const ChatMessages = ({ messages, isOpen }: ChatMessagesProps) => {
             </div>
           ))
         )}
+        <div ref={messagesEndRef} />
       </div>
     </ScrollArea>
   );
