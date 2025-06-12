@@ -27,7 +27,12 @@ const bots = [
       winRate: "83%",
       timeframe: "30d"
     },
-    price: "10~15 SOL"
+    price: "10~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/solana-sniper-bot",
+      stars: "118",
+      forks: "12"
+    }
   },
   {
     id: 2,
@@ -47,7 +52,12 @@ const bots = [
       winRate: "68%",
       timeframe: "30d"
     },
-    price: "2~10 SOL"
+    price: "2~10 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/mev-sandwich-bot",
+      stars: "89",
+      forks: "7"
+    }
   },
   {
     id: 3,
@@ -66,6 +76,11 @@ const bots = [
       roi: "+1560%",
       winRate: "76%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/ultra-buy-sell-telegram-trading-bot",
+      stars: "118",
+      forks: "1"
     }
   },
   {
@@ -86,7 +101,12 @@ const bots = [
       winRate: "79%",
       timeframe: "30d"
     },
-    price: "10~15 SOL"
+    price: "10~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/wallet-rotator-bot",
+      stars: "67",
+      forks: "8"
+    }
   },
   {
     id: 5,
@@ -105,6 +125,11 @@ const bots = [
       roi: "+740%",
       winRate: "87%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/time-decay-exit-bot",
+      stars: "45",
+      forks: "3"
     }
   },
   {
@@ -124,6 +149,11 @@ const bots = [
       roi: "+630%",
       winRate: "92%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/liquidity-trap-avoider",
+      stars: "52",
+      forks: "4"
     }
   },
   {
@@ -143,6 +173,11 @@ const bots = [
       roi: "+680%",
       winRate: "94%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/mean-reversion-bot",
+      stars: "73",
+      forks: "9"
     }
   },
   {
@@ -162,6 +197,11 @@ const bots = [
       roi: "+2340%",
       winRate: "65%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/flash-mirror-bot",
+      stars: "134",
+      forks: "18"
     }
   },
   {
@@ -181,6 +221,11 @@ const bots = [
       roi: "+870%",
       winRate: "91%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/ai-smart-filter-bot",
+      stars: "156",
+      forks: "23"
     }
   },
   {
@@ -200,6 +245,11 @@ const bots = [
       roi: "+1120%",
       winRate: "85%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/pump-dump-detector",
+      stars: "92",
+      forks: "11"
     }
   },
   {
@@ -220,7 +270,12 @@ const bots = [
       winRate: "70%",
       timeframe: "30d"
     },
-    price: "2~10 SOL"
+    price: "2~10 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/general-mev-bot",
+      stars: "187",
+      forks: "31"
+    }
   },
   {
     id: 12,
@@ -240,7 +295,12 @@ const bots = [
       winRate: "72%",
       timeframe: "30d"
     },
-    price: "20~25 SOL"
+    price: "20~25 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/advanced-mev-bot",
+      stars: "203",
+      forks: "42"
+    }
   },
   {
     id: 13,
@@ -259,6 +319,11 @@ const bots = [
       roi: "+1050%",
       winRate: "78%",
       timeframe: "30d"
+    },
+    github: {
+      url: "https://github.com/cryptoking-max/enhanced-copy-trade-bot",
+      stars: "124",
+      forks: "16"
     }
   },
   {
@@ -279,7 +344,12 @@ const bots = [
       winRate: "88%",
       timeframe: "30d"
     },
-    price: "15~20 SOL"
+    price: "15~20 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/stock-trading-bot",
+      stars: "78",
+      forks: "12"
+    }
   },
   {
     id: 15,
@@ -299,7 +369,12 @@ const bots = [
       winRate: "82%",
       timeframe: "30d"
     },
-    price: "18~25 SOL"
+    price: "18~25 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/bitbise-otc-bot",
+      stars: "43",
+      forks: "5"
+    }
   },
   {
     id: 16,
@@ -319,7 +394,12 @@ const bots = [
       winRate: "85%",
       timeframe: "30d"
     },
-    price: "18~25 SOL"
+    price: "18~25 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/mexc-otc-bot",
+      stars: "56",
+      forks: "7"
+    }
   },
   {
     id: 17,
@@ -338,7 +418,12 @@ const bots = [
       roi: "Varies",
       timeframe: "Custom"
     },
-    price: "12~20 SOL"
+    price: "12~20 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/telegram-trading-bot",
+      stars: "98",
+      forks: "14"
+    }
   },
   {
     id: 18,
@@ -357,7 +442,12 @@ const bots = [
       roi: "N/A",
       timeframe: "Utility"
     },
-    price: "8~15 SOL"
+    price: "8~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/telegram-alert-bot",
+      stars: "67",
+      forks: "8"
+    }
   },
   {
     id: 19,
@@ -376,7 +466,12 @@ const bots = [
       roi: "N/A",
       timeframe: "Project"
     },
-    price: "25~50 SOL"
+    price: "25~50 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/trading-platform-website",
+      stars: "145",
+      forks: "28"
+    }
   },
   {
     id: 20,
@@ -395,7 +490,12 @@ const bots = [
       roi: "N/A",
       timeframe: "Project"
     },
-    price: "20~40 SOL"
+    price: "20~40 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/defi-dashboard",
+      stars: "112",
+      forks: "19"
+    }
   },
   {
     id: 21,
@@ -414,7 +514,12 @@ const bots = [
       roi: "N/A",
       timeframe: "Project"
     },
-    price: "30~60 SOL"
+    price: "30~60 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/nft-marketplace",
+      stars: "178",
+      forks: "34"
+    }
   },
   {
     id: 22,
@@ -550,6 +655,7 @@ export default function Services() {
                     features={bot.features}
                     stats={bot.stats}
                     price={bot.price}
+                    github={bot.github}
                   />
                 ))}
               </div>

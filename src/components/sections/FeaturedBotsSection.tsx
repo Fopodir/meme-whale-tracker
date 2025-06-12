@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -24,6 +25,11 @@ const featuredBots = [
       timeframe: "30d",
     },
     price: "10~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/solana-sniper-bot",
+      stars: "118",
+      forks: "12"
+    }
   },
   {
     title: "AI-Powered Smart Filter",
@@ -35,6 +41,11 @@ const featuredBots = [
       timeframe: "30d",
     },
     price: "10~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/ai-smart-filter-bot",
+      stars: "156",
+      forks: "23"
+    }
   },
   {
     title: "Enhanced Copy Trade Bot",
@@ -46,6 +57,11 @@ const featuredBots = [
       timeframe: "30d",
     },
     price: "10~15 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/enhanced-copy-trade-bot",
+      stars: "124",
+      forks: "16"
+    }
   },
   {
     title: "MEV Protection Bot",
@@ -57,6 +73,11 @@ const featuredBots = [
       timeframe: "30d",
     },
     price: "8~12 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/mev-protection-bot",
+      stars: "89",
+      forks: "7"
+    }
   },
   {
     title: "Arbitrage Hunter Bot",
@@ -68,6 +89,11 @@ const featuredBots = [
       timeframe: "30d",
     },
     price: "12~18 SOL",
+    github: {
+      url: "https://github.com/cryptoking-max/arbitrage-hunter-bot",
+      stars: "134",
+      forks: "18"
+    }
   },
 ];
 
@@ -107,7 +133,8 @@ export default function FeaturedBotsSection() {
                     description={bot.description} 
                     features={bot.features} 
                     stats={bot.stats} 
-                    price={bot.price} 
+                    price={bot.price}
+                    github={bot.github}
                   />
                 </div>
               </CarouselItem>

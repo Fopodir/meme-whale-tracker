@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, MoreVertical } from "lucide-react";
+import { Check, MoreVertical, Github, Star, GitFork } from "lucide-react";
 import { useParticleEffect } from "@/hooks/useParticleEffect";
 
 interface BotCardProps {
@@ -15,9 +15,14 @@ interface BotCardProps {
     timeframe: string;
   };
   price?: string;
+  github?: {
+    url: string;
+    stars: string;
+    forks: string;
+  };
 }
 
-export default function BotCard({ title, description, features, stats, price = "10~15 SOL" }: BotCardProps) {
+export default function BotCard({ title, description, features, stats, price = "10~15 SOL", github }: BotCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { createParticleBurst, createEnhancedParticleBurst } = useParticleEffect();
   
@@ -57,8 +62,12 @@ export default function BotCard({ title, description, features, stats, price = "
   };
 
   const handleGitHubClick = () => {
-    // Open GitHub link in new tab
-    window.open("https://github.com/cryptokingmax", "_blank");
+    // Open specific GitHub repo link in new tab
+    if (github?.url) {
+      window.open(github.url, "_blank");
+    } else {
+      window.open("https://github.com/cryptokingmax", "_blank");
+    }
   };
 
   return (
@@ -89,6 +98,23 @@ export default function BotCard({ title, description, features, stats, price = "
             </li>
           ))}
         </ul>
+        
+        {/* GitHub Stats */}
+        {github && (
+          <div className="flex items-center gap-4 mb-4 p-3 bg-gray-800/50 rounded-lg">
+            <Github className="h-4 w-4 text-gray-400" />
+            <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-1">
+                <Star className="h-3 w-3 text-warm-yellow" />
+                <span className="text-gray-300">{github.stars}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <GitFork className="h-3 w-3 text-glow-green" />
+                <span className="text-gray-300">{github.forks}</span>
+              </div>
+            </div>
+          </div>
+        )}
         
         <div className="flex justify-between items-center mt-auto">
           <div>
