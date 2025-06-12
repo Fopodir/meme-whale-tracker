@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check, MoreVertical, Github, Star, GitFork } from "lucide-react";
+import { Check, MoreVertical, Github, Star, GitFork, Loader2 } from "lucide-react";
 import { useParticleEffect } from "@/hooks/useParticleEffect";
+import { useGitHubRepo } from "@/hooks/useGitHubData";
 
 interface BotCardProps {
   title: string;
@@ -25,6 +26,9 @@ interface BotCardProps {
 export default function BotCard({ title, description, features, stats, price = "10~15 SOL", github }: BotCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { createParticleBurst, createEnhancedParticleBurst } = useParticleEffect();
+  
+  // Fetch real GitHub data
+  const githubStats = useGitHubRepo(github?.url || '');
   
   // Determine color based on bot title/type
   const getBotColor = () => {
@@ -66,7 +70,7 @@ export default function BotCard({ title, description, features, stats, price = "
     if (github?.url) {
       window.open(github.url, "_blank");
     } else {
-      window.open("https://github.com/cryptokingmax", "_blank");
+      window.open("https://github.com/cryptoking-max", "_blank");
     }
   };
 
@@ -106,11 +110,23 @@ export default function BotCard({ title, description, features, stats, price = "
             <div className="flex items-center gap-3 text-sm">
               <div className="flex items-center gap-1">
                 <Star className="h-3 w-3 text-warm-yellow" />
-                <span className="text-gray-300">{github.stars}</span>
+                {githubStats.loading ? (
+                  <Loader2 className="h-3 w-3 animate-spin text-gray-400" />
+                ) : githubStats.error ? (
+                  <span className="text-gray-300">{github.stars}</span>
+                ) : (
+                  <span className="text-gray-300">{githubStats.stars}</span>
+                )}
               </div>
               <div className="flex items-center gap-1">
                 <GitFork className="h-3 w-3 text-glow-green" />
-                <span className="text-gray-300">{github.forks}</span>
+                {githubStats.loading ? (
+                  <Loader2 className="h-3 w-3 animate-spin text-gray-400" />
+                ) : githubStats.error ? (
+                  <span className="text-gray-300">{github.forks}</span>
+                ) : (
+                  <span className="text-gray-300">{githubStats.forks}</span>
+                )}
               </div>
             </div>
           </div>

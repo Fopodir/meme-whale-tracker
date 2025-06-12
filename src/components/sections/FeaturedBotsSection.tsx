@@ -11,8 +11,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useCallback } from "react";
-import type { EmblaCarouselType } from "embla-carousel";
 
 const featuredBots = [
   {

@@ -1,38 +1,38 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Github, ExternalLink, Star, GitFork, Users, BookOpen, TrendingUp, Calendar } from "lucide-react";
+import { Github, ExternalLink, Star, GitFork, Users, BookOpen, TrendingUp, Calendar, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useMultipleGitHubRepos } from "@/hooks/useGitHubData";
 
 const githubRepos = [
   {
     name: "Solana Sniper Bot",
     description: "High-performance Solana sniper bot using Jupiter aggregator and private RPC nodes for instant token launches and MEV protection.",
-    stars: "118",
-    forks: "12",
     language: "TypeScript",
     url: "https://github.com/cryptoking-max/solana-sniper-bot",
-    topics: ["solana", "jupiter", "sniper-bot", "defi", "private-node", "mev-protection"]
+    topics: ["solana", "jupiter", "sniper-bot", "defi", "private-node", "mev-protection"],
+    fallbackStars: "118",
+    fallbackForks: "12"
   },
   {
     name: "Solana Telegram Trading Bot",
     description: "Advanced Solana trading bot with instant buy/sell execution via Telegram commands and real-time price alerts.",
-    stars: "118",
-    forks: "1",
     language: "TypeScript",
     url: "https://github.com/cryptoking-max/ultra-buy-sell-telegram-trading-bot",
-    topics: ["solana", "telegram-bot", "trading", "defi", "automation"]
+    topics: ["solana", "telegram-bot", "trading", "defi", "automation"],
+    fallbackStars: "118",
+    fallbackForks: "1"
   },
   {
     name: "Solana Meme Token Launchpad",
     description: "Next.js frontend for launching and managing Solana meme tokens with built-in tokenomics and fair launch features.",
-    stars: "245",
-    forks: "89",
     language: "TypeScript",
     url: "https://github.com/cryptoking-max/solana-token-launch",
-    topics: ["solana", "nextjs", "token-launch", "defi", "meme-token"]
-  
+    topics: ["solana", "nextjs", "token-launch", "defi", "meme-token"],
+    fallbackStars: "245",
+    fallbackForks: "89"
   }
 ];
 
@@ -101,6 +101,9 @@ const blogPosts = [
 
 export default function Promotion() {
   const [activeTab, setActiveTab] = useState<'repos' | 'blog'>('repos');
+  
+  // Fetch real GitHub data for all repositories
+  const reposData = useMultipleGitHubRepos(githubRepos);
 
   const handleRepoClick = (url: string) => {
     window.open(url, "_blank");
@@ -182,47 +185,59 @@ export default function Promotion() {
               <div>
                 <h2 className="text-3xl font-bold text-center mb-12 text-glow-green">Popular Repositories</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {githubRepos.map((repo, index) => (
-                    <Card 
-                      key={index}
-                      className="bg-card border border-muted hover:bg-green-500/15 hover:border-glow-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-glow-green/10 cursor-pointer"
-                      onClick={() => handleRepoClick(repo.url)}
-                    >
-                      <div className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <h3 className="text-xl font-semibold text-white">{repo.name}</h3>
-                          <ExternalLink className="h-5 w-5 text-gray-400" />
-                        </div>
-                        
-                        <p className="text-gray-400 mb-4">{repo.description}</p>
-                        
-                        <div className="flex items-center gap-4 mb-4 text-sm text-gray-300">
-                          <div className="flex items-center">
-                            <Star className="h-4 w-4 mr-1 text-warm-yellow" />
-                            {repo.stars}
+                  {githubRepos.map((repo, index) => {
+                    const repoStats = reposData[index] || { stars: repo.fallbackStars, forks: repo.fallbackForks, loading: false, error: true };
+                    
+                    return (
+                      <Card 
+                        key={index}
+                        className="bg-card border border-muted hover:bg-green-500/15 hover:border-glow-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-glow-green/10 cursor-pointer"
+                        onClick={() => handleRepoClick(repo.url)}
+                      >
+                        <div className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <h3 className="text-xl font-semibold text-white">{repo.name}</h3>
+                            <ExternalLink className="h-5 w-5 text-gray-400" />
                           </div>
-                          <div className="flex items-center">
-                            <GitFork className="h-4 w-4 mr-1 text-glow-green" />
-                            {repo.forks}
-                          </div>
-                          <span className="text-xs bg-glow-green/20 text-glow-green px-2 py-1 rounded">
-                            {repo.language}
-                          </span>
-                        </div>
-                        
-                        <div className="flex flex-wrap gap-1">
-                          {repo.topics.slice(0, 3).map((topic, topicIndex) => (
-                            <span 
-                              key={topicIndex}
-                              className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded"
-                            >
-                              {topic}
+                          
+                          <p className="text-gray-400 mb-4">{repo.description}</p>
+                          
+                          <div className="flex items-center gap-4 mb-4 text-sm text-gray-300">
+                            <div className="flex items-center">
+                              <Star className="h-4 w-4 mr-1 text-warm-yellow" />
+                              {repoStats.loading ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                repoStats.stars
+                              )}
+                            </div>
+                            <div className="flex items-center">
+                              <GitFork className="h-4 w-4 mr-1 text-glow-green" />
+                              {repoStats.loading ? (
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : (
+                                repoStats.forks
+                              )}
+                            </div>
+                            <span className="text-xs bg-glow-green/20 text-glow-green px-2 py-1 rounded">
+                              {repo.language}
                             </span>
-                          ))}
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-1">
+                            {repo.topics.slice(0, 3).map((topic, topicIndex) => (
+                              <span 
+                                key={topicIndex}
+                                className="text-xs bg-gray-700 text-gray-300 px-2 py-1 rounded"
+                              >
+                                {topic}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  ))}
+                      </Card>
+                    );
+                  })}
                 </div>
               </div>
             )}
