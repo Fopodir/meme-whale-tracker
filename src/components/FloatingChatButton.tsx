@@ -26,7 +26,7 @@ export const FloatingChatButton = () => {
           <MessageCircle className="h-6 w-6" />
           {hasUnreadMessages && (
             <div className="absolute -top-1 -right-1 bg-red-500 rounded-full p-1 animate-pulse">
-              <AlarmClock className="h-3 w-3 text-white" />
+              <AlarmClock className="h-3 w-3 text-white animate-bounce" />
             </div>
           )}
           <span className="sr-only">Open chat</span>
