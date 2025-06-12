@@ -52,9 +52,9 @@ const bots = [
       winRate: "68%",
       timeframe: "30d"
     },
-    price: "2~10 SOL",
+    price: "10~13 SOL",
     github: {
-      url: "https://github.com/cryptoking-max/mev-sandwich-bot",
+      url: "https://github.com/cryptoking-max/solana-sandwich-bot",
       stars: "89",
       forks: "7"
     }

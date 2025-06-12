@@ -1,12 +1,40 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Github, ExternalLink, Star, GitFork, Users, BookOpen, TrendingUp, Calendar, Loader2 } from "lucide-react";
+import { Github, ExternalLink, Star, GitFork, Users, BookOpen, TrendingUp, Calendar, Loader2, RefreshCw } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useMultipleGitHubRepos } from "@/hooks/useGitHubData";
+import { GitHubService } from "@/services/githubService";
 
 const githubRepos = [
+  {
+    name: "Solana Meme Copy Trading Bot",
+    description: "Ultra-fast on-chain sniper using Jupiter, private RPC, and Telegram API for instant meme token copy trading.",
+    language: "JavaScript",
+    url: "https://github.com/cryptoking-max/meme-copy-trading-bot",
+    topics: ["solana", "jupiter", "copy-trading", "meme-token", "telegram-bot", "private-node"],
+    fallbackStars: "74",
+    fallbackForks: "74"
+  },
+  {
+    name: "Meme Whale Tracker",
+    description: "Powerful tool that tracks KOL wallets and filters newly launched tokens based on real-time activity from whales and influencers.",
+    language: "TypeScript",
+    url: "https://github.com/cryptoking-max/meme-whale-tracker",
+    topics: ["solana", "whale-tracking", "memecoin", "blockchain-analysis", "defi", "tracker-app"],
+    fallbackStars: "72",
+    fallbackForks: "58"
+  },
+  {
+    name: "Solana Sandwich Bot",
+    description: "Advanced MEV bot specialized in sandwich attack opportunities with mempool monitoring and private transaction routing.",
+    language: "TypeScript",
+    url: "https://github.com/cryptoking-max/solana-sandwich-bot",
+    topics: ["solana", "mev", "sandwich-attack", "mempool", "defi", "private-node"],
+    fallbackStars: "89",
+    fallbackForks: "7"
+  },
   {
     name: "Solana Sniper Bot",
     description: "High-performance Solana sniper bot using Jupiter aggregator and private RPC nodes for instant token launches and MEV protection.",
@@ -101,9 +129,16 @@ const blogPosts = [
 
 export default function Promotion() {
   const [activeTab, setActiveTab] = useState<'repos' | 'blog'>('repos');
+  const [refreshKey, setRefreshKey] = useState(0);
   
-  // Fetch real GitHub data for all repositories
+  // Fetch real GitHub data for all repositories with refresh capability
   const reposData = useMultipleGitHubRepos(githubRepos);
+
+  // Function to force refresh GitHub data
+  const handleRefreshStats = () => {
+    GitHubService.clearCache(); // Clear the cache
+    setRefreshKey(prev => prev + 1); // Force re-render
+  };
 
   const handleRepoClick = (url: string) => {
     window.open(url, "_blank");
@@ -145,6 +180,14 @@ export default function Promotion() {
                 Follow on GitHub
               </Button>
               <Button
+                onClick={handleRefreshStats}
+                variant="outline"
+                className="border-glow-green text-glow-green hover:bg-glow-green hover:text-midnight text-lg font-medium px-8 transition-all duration-300 hover:scale-105"
+              >
+                <RefreshCw className="mr-2 h-5 w-5" />
+                Refresh Stats
+              </Button>
+              <Button
                 onClick={handleFollowBlog}
                 variant="outline"
                 className="border-glow-green text-glow-green hover:bg-glow-green hover:text-midnight text-lg font-medium px-8 transition-all duration-300 hover:scale-105"
@@ -183,14 +226,29 @@ export default function Promotion() {
           <div className="container mx-auto px-4">
             {activeTab === 'repos' && (
               <div>
-                <h2 className="text-3xl font-bold text-center mb-12 text-glow-green">Popular Repositories</h2>
+                <div className="flex justify-between items-center mb-12">
+                  <h2 className="text-3xl font-bold text-glow-green">Popular Repositories</h2>
+                  <Button
+                    onClick={handleRefreshStats}
+                    variant="ghost"
+                    className="text-glow-green hover:text-glow-green/80"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh Stats
+                  </Button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {githubRepos.map((repo, index) => {
-                    const repoStats = reposData[index] || { stars: repo.fallbackStars, forks: repo.fallbackForks, loading: false, error: true };
+                    const repoStats = reposData[index] || { 
+                      stars: repo.fallbackStars || '0', 
+                      forks: repo.fallbackForks || '0', 
+                      loading: true, 
+                      error: false 
+                    };
                     
                     return (
                       <Card 
-                        key={index}
+                        key={`${repo.url}-${refreshKey}`}
                         className="bg-card border border-muted hover:bg-green-500/15 hover:border-glow-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-glow-green/10 cursor-pointer"
                         onClick={() => handleRepoClick(repo.url)}
                       >
@@ -207,6 +265,8 @@ export default function Promotion() {
                               <Star className="h-4 w-4 mr-1 text-warm-yellow" />
                               {repoStats.loading ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : repoStats.error ? (
+                                <span className="text-gray-400">{repo.fallbackStars}</span>
                               ) : (
                                 repoStats.stars
                               )}
@@ -215,6 +275,8 @@ export default function Promotion() {
                               <GitFork className="h-4 w-4 mr-1 text-glow-green" />
                               {repoStats.loading ? (
                                 <Loader2 className="h-4 w-4 animate-spin" />
+                              ) : repoStats.error ? (
+                                <span className="text-gray-400">{repo.fallbackForks}</span>
                               ) : (
                                 repoStats.forks
                               )}
