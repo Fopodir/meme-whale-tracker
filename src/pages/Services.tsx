@@ -31,6 +31,26 @@ const bots = [
   },
   {
     id: 2,
+    category: "mev",
+    title: "Sandwich MEV Bot",
+    description: "Specialized bot for executing and protecting against sandwich attacks with advanced mempool monitoring.",
+    features: [
+      "Real-time mempool monitoring",
+      "Sandwich attack execution",
+      "Anti-sandwich protection",
+      "Gas optimization for front-running",
+      "Slippage protection",
+      "Private transaction routing"
+    ],
+    stats: {
+      roi: "+3200%",
+      winRate: "68%",
+      timeframe: "30d"
+    },
+    price: "2~10 SOL"
+  },
+  {
+    id: 3,
     category: "sniper",
     title: "Sniper + Copy Hybrid Bot",
     description: "Combine the power of sniping and copy trading in one integrated solution.",
@@ -49,7 +69,7 @@ const bots = [
     }
   },
   {
-    id: 3,
+    id: 4,
     category: "strategy",
     title: "Wallet Rotator Strategy Bot",
     description: "Automatically rotate between multiple wallets to avoid detection and maximize trading opportunities.",
@@ -69,7 +89,7 @@ const bots = [
     price: "10~15 SOL"
   },
   {
-    id: 4,
+    id: 5,
     category: "strategy",
     title: "Time Decay Exit Bot",
     description: "Intelligently exit positions based on time-decay algorithms to maximize profits.",
@@ -88,7 +108,7 @@ const bots = [
     }
   },
   {
-    id: 5,
+    id: 6,
     category: "strategy",
     title: "Liquidity Trap Avoider Bot",
     description: "Prevent your trades from getting stuck in low-liquidity situations with smart monitoring.",
@@ -107,7 +127,7 @@ const bots = [
     }
   },
   {
-    id: 6,
+    id: 7,
     category: "strategy",
     title: "Mean Reversion Bot",
     description: "Capitalize on price deviations with statistical mean reversion strategies.",
@@ -126,7 +146,7 @@ const bots = [
     }
   },
   {
-    id: 7,
+    id: 8,
     category: "strategy",
     title: "Flash Mirror Bot",
     description: "Mirror flash loan opportunities across multiple chains and protocols.",
@@ -145,7 +165,7 @@ const bots = [
     }
   },
   {
-    id: 8,
+    id: 9,
     category: "ai",
     title: "AI-Powered Smart Filter Bot",
     description: "Machine learning algorithms that filter out low-quality opportunities to focus on high-probability trades.",
@@ -164,7 +184,7 @@ const bots = [
     }
   },
   {
-    id: 9,
+    id: 10,
     category: "ai",
     title: "Pump-Dump Detector Bot",
     description: "Early detection of pump and dump schemes to either avoid or capitalize on market movements.",
@@ -183,7 +203,27 @@ const bots = [
     }
   },
   {
-    id: 10,
+    id: 11,
+    category: "mev",
+    title: "General MEV Bot",
+    description: "Comprehensive MEV bot for capturing various types of blockchain arbitrage opportunities.",
+    features: [
+      "Multi-type MEV detection",
+      "Arbitrage opportunity execution",
+      "Flash loan integration",
+      "Cross-chain monitoring",
+      "Gas price optimization",
+      "Risk management system"
+    ],
+    stats: {
+      roi: "+2800%",
+      winRate: "70%",
+      timeframe: "30d"
+    },
+    price: "2~10 SOL"
+  },
+  {
+    id: 12,
     category: "mev",
     title: "MEV Bot (Advanced)",
     description: "Extract maximum extractable value through sophisticated blockchain monitoring and execution.",
@@ -203,7 +243,7 @@ const bots = [
     price: "20~25 SOL"
   },
   {
-    id: 11,
+    id: 13,
     category: "copy",
     title: "Enhanced Copy Trade Bot",
     description: "Follow the most successful traders with customizable entry and exit rules.",
@@ -222,7 +262,7 @@ const bots = [
     }
   },
   {
-    id: 12,
+    id: 14,
     category: "cex",
     title: "Stock Trading Bot",
     description: "Automated stock trading with advanced technical analysis and risk management.",
@@ -242,7 +282,7 @@ const bots = [
     price: "15~20 SOL"
   },
   {
-    id: 13,
+    id: 15,
     category: "cex",
     title: "OTC Trading Bot (Bitbise)",
     description: "Over-the-counter trading automation for Bitbise exchange with smart order execution.",
@@ -262,7 +302,7 @@ const bots = [
     price: "18~25 SOL"
   },
   {
-    id: 14,
+    id: 16,
     category: "cex",
     title: "OTC Trading Bot (MEXC)",
     description: "Specialized OTC trading bot for MEXC exchange with advanced features.",
@@ -282,7 +322,7 @@ const bots = [
     price: "18~25 SOL"
   },
   {
-    id: 15,
+    id: 17,
     category: "telegram",
     title: "Telegram Trading Bot",
     description: "Full-featured Telegram bot for trading signals, portfolio management, and automation.",
@@ -301,7 +341,7 @@ const bots = [
     price: "12~20 SOL"
   },
   {
-    id: 16,
+    id: 18,
     category: "telegram",
     title: "Telegram Alert Bot",
     description: "Real-time trading alerts and notifications via Telegram with customizable triggers.",
@@ -320,7 +360,7 @@ const bots = [
     price: "8~15 SOL"
   },
   {
-    id: 17,
+    id: 19,
     category: "web",
     title: "Trading Platform Website",
     description: "Complete trading platform with real-time charts, order management, and user authentication.",
@@ -339,7 +379,7 @@ const bots = [
     price: "25~50 SOL"
   },
   {
-    id: 18,
+    id: 20,
     category: "web",
     title: "DeFi Dashboard Website",
     description: "Comprehensive DeFi portfolio tracker with yield farming and staking analytics.",
@@ -358,7 +398,7 @@ const bots = [
     price: "20~40 SOL"
   },
   {
-    id: 19,
+    id: 21,
     category: "web",
     title: "NFT Marketplace Website",
     description: "Full-featured NFT marketplace with minting, trading, and collection management.",
@@ -377,7 +417,7 @@ const bots = [
     price: "30~60 SOL"
   },
   {
-    id: 20,
+    id: 22,
     category: "custom",
     title: "Custom Development",
     description: "Fully customized solutions built to your exact specifications and requirements.",
