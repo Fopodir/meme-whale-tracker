@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWebSocketContext } from '@/contexts/WebSocketContext';
@@ -23,6 +24,7 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   const prevMessageCount = useRef(messages.length);
   const { soundEnabled, playNotificationSound } = useNotificationSound();
   const { showBrowserNotification, permission, requestPermission } = useBrowserNotifications();
+  const chatRef = useRef<HTMLDivElement>(null);
 
   // Request notification permission when chat is first opened
   useEffect(() => {
@@ -42,6 +44,23 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
       markMessagesAsRead();
     }
   }, [isOpen, hasUnreadMessages, markMessagesAsRead]);
+
+  // Handle clicks outside the chat panel
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (chatRef.current && !chatRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
 
   // Show alert and play sound for new messages
   useEffect(() => {
@@ -92,28 +111,34 @@ export const TelegramChat = ({ isOpen, onClose }: TelegramChatProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-20 right-4 z-50">
-      <Card className="w-80 h-[500px] bg-card/95 backdrop-blur-sm border-muted shadow-xl">
-        <ChatHeader
-          isConnected={isConnected}
-          hasUnreadMessages={hasUnreadMessages}
-          messagesLength={messages.length}
-          isMuted={isMuted}
-          soundEnabled={soundEnabled}
-          onToggleMute={toggleMute}
-          onClose={onClose}
-        />
-
-        <CardContent className="p-0 flex flex-col h-full">
-          <ChatAlert showAlert={showAlert} alertMessage={alertMessage} />
-          <ChatMessages messages={messages} isOpen={isOpen} />
-          <ChatInput 
-            isOpen={isOpen}
+    <>
+      {/* Backdrop overlay */}
+      <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm animate-fade-in" />
+      
+      {/* Chat panel */}
+      <div ref={chatRef} className="fixed bottom-20 right-4 z-50 animate-scale-in">
+        <Card className="w-80 h-[500px] bg-card/95 backdrop-blur-sm border-muted shadow-xl">
+          <ChatHeader
             isConnected={isConnected}
-            onSendMessage={sendMessage}
+            hasUnreadMessages={hasUnreadMessages}
+            messagesLength={messages.length}
+            isMuted={isMuted}
+            soundEnabled={soundEnabled}
+            onToggleMute={toggleMute}
+            onClose={onClose}
           />
-        </CardContent>
-      </Card>
-    </div>
+
+          <CardContent className="p-0 flex flex-col h-full">
+            <ChatAlert showAlert={showAlert} alertMessage={alertMessage} />
+            <ChatMessages messages={messages} isOpen={isOpen} />
+            <ChatInput 
+              isOpen={isOpen}
+              isConnected={isConnected}
+              onSendMessage={sendMessage}
+            />
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 };
